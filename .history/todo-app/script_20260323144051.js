@@ -1,17 +1,17 @@
-function addTask() {
-  const input = document.getElementById("taskInput");
-  const taskText = input.value.trim();
-
+function li.innerHTML = `
+  <span onclick="toggleTask(this)">${taskText}</span>
+  <div>
+    <button onclick="editTask(this)">Edit</button>
+    <button onclick="deleteTask(this)">X</button>
+  </div>
+`;
   if (taskText === "") return;
 
   const li = document.createElement("li");
 
   li.innerHTML = `
     <span onclick="toggleTask(this)">${taskText}</span>
-    <div>
-      <button onclick="editTask(this)">Edit</button>
-      <button onclick="deleteTask(this)">X</button>
-    </div>
+    <button onclick="deleteTask(this)">X</button>
   `;
 
   document.getElementById("taskList").appendChild(li);
@@ -22,7 +22,7 @@ function addTask() {
 }
 
 function deleteTask(button) {
-  button.parentElement.parentElement.remove();
+  button.parentElement.remove();
   saveTasks();
 }
 
@@ -31,23 +31,13 @@ function toggleTask(task) {
   saveTasks();
 }
 
-function editTask(button) {
-  const span = button.parentElement.parentElement.querySelector("span");
-  const newTask = prompt("Edit your task:", span.textContent);
-
-  if (newTask !== null && newTask.trim() !== "") {
-    span.textContent = newTask.trim();
-    saveTasks();
-  }
-}
-
-/* SAVE TASKS */
+/* SAVE TO LOCAL STORAGE */
 function saveTasks() {
   const tasks = document.getElementById("taskList").innerHTML;
   localStorage.setItem("tasks", tasks);
 }
 
-/* LOAD TASKS */
+/* LOAD TASKS WHEN PAGE OPENS */
 function loadTasks() {
   const saved = localStorage.getItem("tasks");
   if (saved) {
@@ -55,5 +45,4 @@ function loadTasks() {
   }
 }
 
-/* RUN ON PAGE LOAD */
 loadTasks();
