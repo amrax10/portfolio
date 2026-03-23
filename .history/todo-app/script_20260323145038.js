@@ -17,22 +17,20 @@ function addTask() {
   document.getElementById("taskList").appendChild(li);
 
   input.value = "";
+
   saveTasks();
 }
 
-// Delete task
 function deleteTask(button) {
   button.parentElement.parentElement.remove();
   saveTasks();
 }
 
-// Toggle completed
 function toggleTask(task) {
   task.classList.toggle("completed");
   saveTasks();
 }
 
-// Edit task
 function editTask(button) {
   const span = button.parentElement.parentElement.querySelector("span");
   const newTask = prompt("Edit your task:", span.textContent);
@@ -43,13 +41,13 @@ function editTask(button) {
   }
 }
 
-// Save tasks to localStorage
+/* SAVE TASKS */
 function saveTasks() {
   const tasks = document.getElementById("taskList").innerHTML;
   localStorage.setItem("tasks", tasks);
 }
 
-// Load tasks from localStorage
+/* LOAD TASKS */
 function loadTasks() {
   const saved = localStorage.getItem("tasks");
   if (saved) {
@@ -57,13 +55,12 @@ function loadTasks() {
   }
 }
 
-// Enter key adds task
+/* RUN ON PAGE LOAD */
+loadTasks();
+// Make Enter key add a task
 const input = document.getElementById("taskInput");
 input.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     addTask();
   }
 });
-
-// Load tasks on page load
-loadTasks();
